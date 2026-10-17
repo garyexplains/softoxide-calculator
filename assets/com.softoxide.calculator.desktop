@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=SoftOxide Calculator
+Comment=Scientific, programmer and RPN calculator
+Exec=softoxide-calculator
+Icon=com.softoxide.calculator
+Terminal=false
+Categories=Utility;Calculator;
+StartupNotify=true
+StartupWMClass=com.softoxide.calculator

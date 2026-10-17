@@ -10,7 +10,8 @@ if [ -z "${CARGO_HOME:-}" ] && [ -d "$project_dir/.cargo-cache/registry/src" ]; 
 fi
 cargo build --locked --release --manifest-path "$project_dir/Cargo.toml"
 bundle_dir="$project_dir/target/SoftOxide Calculator.app"
-mkdir -p "$bundle_dir/Contents/MacOS"
+mkdir -p "$bundle_dir/Contents/MacOS" "$bundle_dir/Contents/Resources"
+cp "$project_dir/assets/icon.icns" "$bundle_dir/Contents/Resources/SoftOxideCalculator.icns"
 cp "$project_dir/target/release/softoxide-calculator" "$bundle_dir/Contents/MacOS/SoftOxideCalculator"
 cat > "$bundle_dir/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -20,6 +21,7 @@ cat > "$bundle_dir/Contents/Info.plist" <<'PLIST'
   <key>CFBundleIdentifier</key><string>com.softoxide.calculator</string>
   <key>CFBundleName</key><string>SoftOxide Calculator</string>
   <key>CFBundleDisplayName</key><string>SoftOxide Calculator</string>
+  <key>CFBundleIconFile</key><string>SoftOxideCalculator.icns</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>0.1.0</string>
   <key>CFBundleVersion</key><string>1</string>

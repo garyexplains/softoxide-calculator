@@ -17,7 +17,7 @@ The recorded toolchain was Rust 1.99.1 with egui/eframe 0.33.3. The repository i
 | Check | Result |
 |---|---|
 | `cargo fmt --all -- --check` | Passed |
-| `cargo test --locked --workspace` | 96 passed: 17 engine/storage/model tests, 74 function-catalog tests, 5 egui UI tests |
+| `cargo test --locked --workspace` | 98 passed: 17 engine/storage/model tests, 74 function-catalog tests, 5 egui UI tests and 2 icon-asset tests |
 | `cargo clippy --locked --workspace --all-targets -- -D warnings` | Passed |
 | `cargo build --locked --release` | Passed on macOS ARM64 |
 | `sh scripts/package-macos.sh` | Created an application bundle containing the native release executable |

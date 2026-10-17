@@ -142,6 +142,10 @@ cargo clippy --locked --workspace --all-targets -- -D warnings
 
 See [TESTING.md](TESTING.md) for function-specific tests, test coverage and native smoke checks. [VALIDATION.md](VALIDATION.md) records platform validation and its limits. Linux support still needs build/runtime validation; macOS has automated build/test coverage, and successful Windows compilation, testing and use have been reported.
 
+## Application icon
+
+Platform-ready PNG, ICO and ICNS assets are included under [assets/](assets/README.md). The desktop app embeds its window icon; the Windows MSVC build and macOS bundle script also attach the platform icon to their executables/bundles. Linux packaging can use the included desktop-entry template and PNG.
+
 ## Project structure
 
 | Path | Responsibility |

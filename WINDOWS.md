@@ -64,7 +64,7 @@ Or build and launch with one command:
 cargo run --locked --release
 ```
 
-The result is a native egui window. The default history/settings file is `%APPDATA%\SoftOxideCalculator\session-v1.txt`.
+The result is a native egui window. The build embeds the application icon into the executable using the Windows SDK resource compiler (`rc.exe`); the SDK is part of the prerequisites above. The default history/settings file is `%APPDATA%\SoftOxideCalculator\session-v1.txt`.
 
 For an isolated manual trial, use a separate terminal and set a different data directory before launching:
 
