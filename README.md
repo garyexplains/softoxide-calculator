@@ -11,6 +11,16 @@ A native desktop calculator inspired by Apple Calculator for macOS, written in R
 - Offline conversions between 27 units across length, mass, temperature, time, volume and area.
 - Editable expressions, keyboard input, clipboard copying, always-on-top, and persistent calculation history.
 
+## Screenshots
+
+![Basic calculator](docs/screenshots/softoxide-calculator-basic.jpg)
+
+![Scientific calculator](docs/screenshots/softoxide-calculator-sci.jpg)
+
+![Programmer calculator](docs/screenshots/softoxide-calculator-programmer.jpg)
+
+![Conversion calculator](docs/screenshots/softoxide-calculator-convert.jpg)
+
 ## Get the app
 
 Prebuilt applications, when available, are attached to this repository's **Releases**. Choose an asset matching your operating system and processor architecture. Prebuilt applications do not require Rust.
