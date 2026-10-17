@@ -1,0 +1,52 @@
+# Rust build outputs (including builds in workspace members).
+target/
+*.rlib
+*.rmeta
+*.pdb
+
+# Packaging and other generated output directories.
+dist/
+/build/
+/out/
+*.app/
+*.AppImage
+*.appimage
+*.deb
+*.rpm
+*.dmg
+*.msi
+*.msix
+*.exe
+/*.zip
+/*.tar.gz
+/*.tar.xz
+/*.sha256
+/SHA256SUMS
+
+# Machine-local Cargo caches; keep Cargo.lock and shared .cargo/config.toml.
+/.cargo-cache/
+/.cargo-home/
+/.cargo/credentials
+/.cargo/credentials.toml
+
+# Local publishing notes, intentionally excluded from the public repository.
+/PREPARE_TO_PUBLISH.md
+
+# OS/editor temporary files.
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+.idea/
+*.swp
+*.swo
+*~
+
+# Local environment overrides and application data.
+.env
+.env.*
+!.env.example
+!.env.sample
+/session-v1.txt
+/session-v1.tmp-*
+*.log
