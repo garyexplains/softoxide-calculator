@@ -9,11 +9,13 @@ if [ -z "${CARGO_HOME:-}" ] && [ -d "$project_dir/.cargo-cache/registry/src" ]; 
     export CARGO_HOME="$project_dir/.cargo-cache"
 fi
 cargo build --locked --release --manifest-path "$project_dir/Cargo.toml"
+package_id=$(cargo pkgid --locked --manifest-path "$project_dir/desktop/Cargo.toml")
+app_version=${package_id##*@}
 bundle_dir="$project_dir/target/SoftOxide Calculator.app"
 mkdir -p "$bundle_dir/Contents/MacOS" "$bundle_dir/Contents/Resources"
 cp "$project_dir/assets/icon.icns" "$bundle_dir/Contents/Resources/SoftOxideCalculator.icns"
 cp "$project_dir/target/release/softoxide-calculator" "$bundle_dir/Contents/MacOS/SoftOxideCalculator"
-cat > "$bundle_dir/Contents/Info.plist" <<'PLIST'
+cat > "$bundle_dir/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
@@ -23,8 +25,8 @@ cat > "$bundle_dir/Contents/Info.plist" <<'PLIST'
   <key>CFBundleDisplayName</key><string>SoftOxide Calculator</string>
   <key>CFBundleIconFile</key><string>SoftOxideCalculator.icns</string>
   <key>CFBundlePackageType</key><string>APPL</string>
-  <key>CFBundleShortVersionString</key><string>0.1.0</string>
-  <key>CFBundleVersion</key><string>1</string>
+  <key>CFBundleShortVersionString</key><string>$app_version</string>
+  <key>CFBundleVersion</key><string>$app_version</string>
   <key>NSHighResolutionCapable</key><true/>
   <key>LSMinimumSystemVersion</key><string>11.0</string>
 </dict></plist>

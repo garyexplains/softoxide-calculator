@@ -906,7 +906,7 @@ impl Desktop {
     }
     fn help(&mut self, ctx: &egui::Context) {
         egui::Window::new("About SoftOxide Calculator").open(&mut self.help_open).resizable(false).show(ctx,|ui|{
-            ui.set_max_width(480.0);ui.heading("SoftOxide Calculator");ui.label("A native egui app inspired by Apple Calculator for macOS.");ui.separator();
+            ui.set_max_width(480.0);ui.heading("SoftOxide Calculator");ui.label(concat!("Version ", env!("CARGO_PKG_VERSION")));ui.label("A native egui app inspired by Apple Calculator for macOS.");ui.separator();
             ui.label("Enter evaluates; Escape clears; Backspace deletes. Click the expression to edit or paste a formula. Copy uses your system clipboard.");
             ui.label("Scientific: ^ is right-associative power. Functions use parentheses; root(x,n), rroot(n,x), log(x,base). Complete the closing parenthesis after using a two-argument function button.");
             ui.label("RPN: Enter pushes input or duplicates the top. Binary operations consume the top two values. Errors leave operands intact.");
