@@ -1,5 +1,6 @@
 #![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 mod app;
+mod rendering;
 mod startup;
 use eframe::egui;
 fn main() -> std::process::ExitCode {
@@ -22,6 +23,12 @@ fn run() -> eframe::Result<()> {
     let icon = eframe::icon_data::from_png_bytes(include_bytes!("../../assets/icon.png"))
         .expect("The bundled application icon must be a valid PNG");
     let options = eframe::NativeOptions {
+        #[cfg(target_os = "windows")]
+        renderer: eframe::Renderer::Wgpu,
+        #[cfg(target_os = "windows")]
+        wgpu_options: rendering::windows_configuration(),
+        #[cfg(not(target_os = "windows"))]
+        renderer: eframe::Renderer::Glow,
         viewport: egui::ViewportBuilder::default()
             .with_title("SoftOxide Calculator")
             .with_icon(icon)

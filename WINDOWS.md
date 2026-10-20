@@ -107,11 +107,15 @@ Rust is needed to build the app, not to run it. Startup errors now produce a Win
 
 If that directory cannot be written, the app tries `%TEMP%\SoftOxideCalculator\startup.log`. Packaged Store applications may redirect these locations; the error dialog shows the actual path used. Copy the log before launching again. Failures before the application entry point, such as a missing DLL, cannot be logged by the application.
 
-For a Store startup failure, also test the standalone release executable on the same machine. If only the packaged app fails, inspect the package manifest and activation configuration. This app currently uses OpenGL, so VM graphics drivers are another possible source of startup failures. Include the dialog text and log when reporting an issue.
+For a Store startup failure, also test the standalone release executable on the same machine. If only the packaged app fails, inspect the package manifest and activation configuration. Windows builds use wgpu with Direct3D 12, preferring hardware adapters and allowing software adapters such as Windows WARP when no compatible hardware adapter is available. OpenGL is not required on Windows. Include the dialog text and log when reporting an issue.
 
 - **`cargo` is not found:** open a new terminal and confirm the Rust installation completed.
 - **`link.exe` or Windows SDK errors:** install the C++ workload and matching SDK, then reopen the terminal. If needed, use the Visual Studio Developer PowerShell / Native Tools prompt for your architecture.
 - **Dependency-download errors:** allow access to crates.io and its crate downloads. Use `--offline` only after the required Windows dependencies are cached.
-- **Tests pass but the application cannot open a window:** check graphics drivers and OpenGL availability. Headless tests do not create the native graphics context.
+- **Tests pass but the application cannot open a window:** check the startup error dialog and log for Direct3D initialization failures. Headless tests do not create the native graphics context.
 
 Successful Windows compilation, testing and use have been reported. See [VALIDATION.md](VALIDATION.md) for the recorded platform status. When reporting a failure, include the command, complete error output, Windows version and `rustc -vV` output.
+
+### Older Windows builds report an OpenGL requirement
+
+The initial Windows release used the OpenGL renderer. An error such as `egui_glow requires OpenGL 2.0+` means that renderer could not initialize with the installed graphics driver; it is not a missing Rust installation. Rebuild from the updated source, which selects Direct3D 12 on Windows, and test the standalone executable on the affected machine before creating a replacement Store package. macOS and Linux continue to use OpenGL.

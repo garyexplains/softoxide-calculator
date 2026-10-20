@@ -25,10 +25,11 @@ impl Diagnostics {
             });
         let diagnostics = Self { path };
         diagnostics.record(&format!(
-            "Starting SoftOxide Calculator {} on {} / {}; renderer=Glow (OpenGL)",
+            "Starting SoftOxide Calculator {} on {} / {}; renderer={}",
             env!("CARGO_PKG_VERSION"),
             std::env::consts::OS,
             std::env::consts::ARCH,
+            crate::rendering::DESCRIPTION,
         ));
         diagnostics.record(&format!("Executable: {:?}", std::env::current_exe()));
         let panic_diagnostics = diagnostics.clone();

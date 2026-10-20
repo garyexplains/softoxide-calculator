@@ -44,4 +44,12 @@ See [TESTING.md](TESTING.md) and [the function catalog](core/tests/function_cata
 - Public distribution signing/notarization. The macOS bundle script currently provides ad-hoc signing only.
 - Numerical equivalence to Apple's Calculator; the application uses its own documented arithmetic policies.
 
+## Windows renderer update — 2026-10-20
+
+A fresh Windows 11 Enterprise VM and Store review reported startup failure. The diagnostic build reported `egui_glow requires OpenGL 2.0+`, identifying OpenGL initialization as the immediate failure.
+
+Windows now selects wgpu with the Direct3D 12 backend. Adapter selection prefers compatible hardware and retains CPU/software adapters, including Windows WARP, as a fallback. macOS and Linux explicitly retain the Glow renderer. Startup diagnostics report the configured renderer.
+
+On macOS ARM64, formatting, Clippy with warnings denied, the release build, and all 99 tests passed. The additional test compiles the Windows graphics configuration on the host and checks Direct3D selection and the no-adapter error path. It does not initialize Direct3D or establish successful Windows startup. Native Windows compilation, standalone execution in the affected VM, software-adapter rendering, and Store-package activation still require verification.
+
 Currency and Math Notes are not implemented and are not part of the test coverage.
