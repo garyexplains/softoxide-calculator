@@ -8,7 +8,7 @@ Run these commands from the repository root, the directory containing `Cargo.tom
 cargo test --locked --workspace
 ```
 
-The current suite contains **99 named tests**, including 74 function-catalog tests. Some tests exercise matrices with many individual inputs. Cargo prints `ok` or `FAILED` for each named test and reports a summary for each test binary. Failures produce a nonzero exit code and assertion details.
+The current suite contains **100 named tests**, including 74 function-catalog tests. Some tests exercise matrices with many individual inputs. Cargo prints `ok` or `FAILED` for each named test and reports a summary for each test binary. Failures produce a nonzero exit code and assertion details.
 
 The automated suite does not open OS windows or modify your application history. Persistence tests use disposable directories under the operating system's temporary directory. The first run needs internet access to fetch build dependencies; subsequent runs can use `--offline` when all required dependencies are cached.
 

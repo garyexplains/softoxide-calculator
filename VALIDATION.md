@@ -53,3 +53,7 @@ Windows now selects wgpu with the Direct3D 12 backend. Adapter selection prefers
 On macOS ARM64, formatting, Clippy with warnings denied, the release build, and all 99 tests passed. The additional test compiles the Windows graphics configuration on the host and checks Direct3D selection and the no-adapter error path. It does not initialize Direct3D or establish successful Windows startup. Native Windows compilation, standalone execution in the affected VM, software-adapter rendering, and Store-package activation still require verification.
 
 Currency and Math Notes are not implemented and are not part of the test coverage.
+
+## Fixed dark appearance — 2026-10-20
+
+The app now explicitly selects the dark theme before applying its custom styling. A regression test starts with a light preference and supplies light/dark/light system-theme changes across rendered frames, checking that the dark appearance and custom panel/window colours persist. All 100 tests and Clippy passed on macOS ARM64. Native Windows visual verification remains pending.

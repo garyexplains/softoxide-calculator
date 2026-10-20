@@ -102,6 +102,8 @@ impl Desktop {
         app
     }
     fn with_path(ctx: &egui::Context, path: Option<PathBuf>) -> Self {
+        // The calculator's colours are designed for dark mode, regardless of OS preference.
+        ctx.set_theme(egui::ThemePreference::Dark);
         let mut style = (*ctx.style()).clone();
         style.visuals = egui::Visuals::dark();
         style.visuals.panel_fill = Color32::from_rgb(29, 30, 35);
@@ -963,6 +965,27 @@ impl eframe::App for Desktop {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn dark_design_survives_system_theme_changes() {
+        let ctx = egui::Context::default();
+        ctx.set_theme(egui::ThemePreference::Light);
+        let mut app = Desktop::with_path(&ctx, None);
+        for system_theme in [egui::Theme::Light, egui::Theme::Dark, egui::Theme::Light] {
+            let _ = ctx.run(
+                egui::RawInput {
+                    system_theme: Some(system_theme),
+                    ..Default::default()
+                },
+                |ctx| app.draw(ctx),
+            );
+            assert_eq!(ctx.theme(), egui::Theme::Dark);
+            let style = ctx.style();
+            assert!(style.visuals.dark_mode);
+            assert_eq!(style.visuals.panel_fill, Color32::from_rgb(29, 30, 35));
+            assert_eq!(style.visuals.window_fill, Color32::from_rgb(34, 35, 41));
+        }
+    }
+
     #[test]
     fn conversion_controls_share_one_aligned_row() {
         for width in [400.0, 440.0, 860.0] {
