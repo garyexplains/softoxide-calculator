@@ -97,6 +97,19 @@ Close the running calculator before rebuilding its executable. If you are buildi
 
 ## Troubleshooting
 
+### Direct3D build reports incompatible Windows API types
+
+If `wgpu-hal` reports mismatched `ID3D12Device` or `ID3D12Heap` types from `windows` 0.54 and 0.58, update to the corrected committed `Cargo.lock`. The Direct3D backend and `gpu-allocator` must both resolve to `windows` 0.58.0. An older lockfile selected 0.54.0 for the allocator, causing Windows-only compilation failures.
+
+To repair that older lockfile directly:
+
+```powershell
+cargo update -p windows@0.54.0 --precise 0.58.0
+cargo build --locked --release
+```
+
+Keep the corrected lockfile in version control and use `--locked` for release builds. Do not edit downloaded crate source files.
+
 ### Application exits before showing a window
 
 Rust is needed to build the app, not to run it. Startup errors now produce a Windows error dialog and a diagnostic log. Each launch replaces the previous log. The usual location is:
