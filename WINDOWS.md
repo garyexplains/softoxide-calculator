@@ -97,6 +97,18 @@ Close the running calculator before rebuilding its executable. If you are buildi
 
 ## Troubleshooting
 
+### Application exits before showing a window
+
+Rust is needed to build the app, not to run it. Startup errors now produce a Windows error dialog and a diagnostic log. Each launch replaces the previous log. The usual location is:
+
+```text
+%LOCALAPPDATA%\SoftOxideCalculator\startup.log
+```
+
+If that directory cannot be written, the app tries `%TEMP%\SoftOxideCalculator\startup.log`. Packaged Store applications may redirect these locations; the error dialog shows the actual path used. Copy the log before launching again. Failures before the application entry point, such as a missing DLL, cannot be logged by the application.
+
+For a Store startup failure, also test the standalone release executable on the same machine. If only the packaged app fails, inspect the package manifest and activation configuration. This app currently uses OpenGL, so VM graphics drivers are another possible source of startup failures. Include the dialog text and log when reporting an issue.
+
 - **`cargo` is not found:** open a new terminal and confirm the Rust installation completed.
 - **`link.exe` or Windows SDK errors:** install the C++ workload and matching SDK, then reopen the terminal. If needed, use the Visual Studio Developer PowerShell / Native Tools prompt for your architecture.
 - **Dependency-download errors:** allow access to crates.io and its crate downloads. Use `--offline` only after the required Windows dependencies are cached.

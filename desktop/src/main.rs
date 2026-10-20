@@ -1,7 +1,24 @@
 #![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 mod app;
+mod startup;
 use eframe::egui;
-fn main() -> eframe::Result<()> {
+fn main() -> std::process::ExitCode {
+    let diagnostics = startup::Diagnostics::install();
+    match run() {
+        Ok(()) => {
+            diagnostics.record("Application closed normally");
+            std::process::ExitCode::SUCCESS
+        }
+        Err(error) => {
+            diagnostics.report(&format!(
+                "Window initialization or event loop failed:\n{error:#?}"
+            ));
+            std::process::ExitCode::FAILURE
+        }
+    }
+}
+
+fn run() -> eframe::Result<()> {
     let icon = eframe::icon_data::from_png_bytes(include_bytes!("../../assets/icon.png"))
         .expect("The bundled application icon must be a valid PNG");
     let options = eframe::NativeOptions {
